@@ -2,14 +2,18 @@
   "name": "server",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "src/app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "run" : "node src/app.js"
   },
   "repository": {
     "type": "git",
     "url": "https://etulab.univ-amu.fr/a19002596/signal-amu-server.git"
   },
   "author": "gated'inc",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^16.0.0"
+  }
 }
