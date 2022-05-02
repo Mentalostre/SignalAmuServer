@@ -2,10 +2,12 @@
   "name": "server",
   "version": "1.0.0",
   "description": "",
+  "type": "module",
   "main": "src/app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "run" : "node src/app.js"
+    "start:dev": "node src/app.js",
+    "start:prod": "NODE_ENV=production node src/app.js"
   },
   "repository": {
     "type": "git",
@@ -14,6 +16,7 @@
   "author": "gated'inc",
   "license": "ISC",
   "dependencies": {
-    "dotenv": "^16.0.0"
+    "dotenv": "^16.0.0",
+    "express": "^4.18.1"
   }
 }
