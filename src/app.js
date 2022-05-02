@@ -3,7 +3,7 @@ import {express_router} from "./config/router.js";
 import {api_endpoint} from "./router/default.js";
 
 
-if(process.env.NODE_ENV != 'production'){
+if(process.env.NODE_ENV !== 'production'){
     const dot_env = await import('dotenv');
     dot_env.config();
 }
