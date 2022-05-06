@@ -1,5 +1,5 @@
-import {express_config} from './config/express.js'
-import {express_router} from "./config/router.js";
+import {express_config} from './config/express/express-config.js'
+import {express_router} from "./config/express/router-config.js";
 import {api_endpoint} from "./router/default.js";
 
 

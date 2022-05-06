@@ -1,10 +1,10 @@
-import * as services from '../services/default.js'
 import {default as api} from './api/api.js'
+import {error404_service} from "../services/error404.js";
 
 export const api_endpoint = (rooter)=>{
-    rooter.get('/', services.error404);
+    rooter.get('/', error404_service);
 
-    api(rooter, services)
+    api(rooter)
 
 }
 
