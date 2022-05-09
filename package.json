@@ -6,8 +6,8 @@
   "main": "src/app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start:dev": "node src/app.js",
-    "start:prod": "NODE_ENV=production node src/app.js"
+    "start:dev": "nodenv src/app.js",
+    "start:prod": "node src/app.js"
   },
   "repository": {
     "type": "git",
@@ -20,6 +20,9 @@
     "cookie-session": "^2.0.0",
     "dotenv": "^16.0.0",
     "express": "^4.18.1",
-    "mariadb": "^3.0.0"
+    "googleapis": "^100.0.0",
+    "mariadb": "^3.0.0",
+    "node-env-run": "^4.0.2",
+    "nodemailer": "^6.7.5"
   }
 }

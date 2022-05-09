@@ -1,10 +1,8 @@
 import {hash} from "../utils/sha256-hasher.js";
-
+import {signup_db} from "../models/signup.js";
+import {eventEmitter} from "../config/events/event-config.js";
 
 const signup_service= (req, res)=>{
-
-
-
     let mail = req.body.email;
     let password = req.body.password;
     let encrypted_password = encrypt_password(password);
@@ -15,25 +13,42 @@ const signup_service= (req, res)=>{
         first_name: names.firstName,
         last_name: names.lastName
     }
+    signup_db_call(data).then(()=>{
 
+        eventEmitter.emit('signup', {email: mail});
 
-    res.send("salut");
+        res.send({
+            res: 1
+        })
+    }).catch((err)=>{
+        if(err.errno === 1062){ // ducplicate mail
+            res.status(200).send({
+                res: 100,
+            })
+        }
+        else{
+            console.log("signup error : " + err)
+            res.send({
+                res: 69
+            })
+        }
+    })
 };
 // mail
 // mot de passe
 
 
-const signup_db = async (data)=>{
-
+const signup_db_call = async (data)=>{
+    await signup_db(data);
 }
 
 
 const get_names = (mail) =>{
     let arr1 = mail.split("@");
-    let arr2 = arr[0];
-    let names = first.split(".");
-    let f = nameettout[0];
-    let l = nameettout[1];
+    let arr2 = arr1[0];
+    let names = arr2.split(".");
+    let f = names[0];
+    let l = names[1];
     return {
         firstName:f,
         lastName:l
@@ -56,8 +71,9 @@ const amu_etu_email_regex = '[a-zA-Z]+\\.[a-zA-Z]+@etu\\.univ-amu\\.fr';
 const is_amu_email = (req, res, next)=>{
     if(validate_amu_email(req.body.email)) next();
     else{
-        res.statusMessage = "Invalid email";
-        res.status(406).end();
+        res.status(200).send({
+            res:25
+        });
     }
 };
 
@@ -74,7 +90,9 @@ const is_valid_req_signup_service = (req, res, next)=>{
     if (req.body.email && req.body.password) next();
     else {
         res.statusMessage = "Invalid request";
-        res.status(406).end();
+        res.status(200).send({
+            res:50
+        });
     }
 };
 

@@ -1,16 +1,15 @@
 import {express_config} from './config/express/express-config.js'
 import {express_router} from "./config/express/router-config.js";
 import {api_endpoint} from "./router/default.js";
+import {set_up_events} from "./config/events/event-config.js";
 
 
-if(process.env.NODE_ENV !== 'production'){
-    const dot_env = await import('dotenv');
-    dot_env.config();
-}
 
 const PORT = process.env.PORT || 3000;
 const app = express_config();
 const router = express_router();
+
+set_up_events();
 
 api_endpoint(router); // setup end-point
 app.use('/', router);
