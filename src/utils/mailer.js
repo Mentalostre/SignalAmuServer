@@ -21,7 +21,7 @@ const send_mail = async (data)=>{
         from: 'SIGNAL\' AMU <signalamu@gmail.com>',
         to: data.mail,
         subject: 'Confirmez votre compte Signal\'AMU ',
-        text: 'Executer cette url pour valider votre email : http://localhost:3000/validate-email/' + data.last_name + '/' + data.key,
+        text: 'Executez cette url pour valider votre email : http://localhost:3000/validate-email/' + data.last_name + '/' + data.key,
     };
 
     try {
