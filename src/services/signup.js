@@ -17,7 +17,7 @@ const signup_service= async (req, res)=>{
     }
     try {
         await signup_db(data);
-        eventEmitter.emit('signup', {mail:mail, last_name: names.lastName, key:key});
+        eventEmitter.emit('signup', {mail:mail, last_name: names.lastName, key:key, first_name: names.firstName});
         res.send({res: 1});
     }
     catch (err){

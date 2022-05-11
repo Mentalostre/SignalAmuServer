@@ -16,6 +16,8 @@ const email_validator_service = (req, res)=>{
                 res.status(200).send('email vérifié');
             }
         }
+    }).catch((err)=>{
+        console.log(err);
     });
 };
 
