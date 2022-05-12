@@ -1,0 +1,109 @@
+create table if not exists status
+(
+    id          int          not null
+        primary key,
+    status_name varchar(255) not null,
+    constraint status_status_name_uindex
+        unique (status_name)
+);
+
+create table if not exists tag
+(
+    id       int          not null
+        primary key,
+    tag_name varchar(255) not null,
+    constraint tag_tag_name_uindex
+        unique (tag_name)
+);
+
+create table if not exists user
+(
+    id               int auto_increment
+        primary key,
+    user_email       varchar(255)         not null,
+    password         varchar(255)         not null,
+    first_name       varchar(255)         not null,
+    last_name        varchar(255)         not null,
+    is_verified      tinyint(1) default 0 null,
+    key_verification int                  not null,
+    constraint user_user_email_uindex
+        unique (user_email)
+)
+    auto_increment = 77;
+
+create table if not exists consumer
+(
+    id int not null
+        primary key,
+    constraint consumer_user_id_fk
+        foreign key (id) references user (id)
+);
+
+create table if not exists info
+(
+    id          int          not null
+        primary key,
+    tel         varchar(255) null,
+    info_email  varchar(255) null,
+    info_desc   varchar(512) null,
+    consumer_id int          null,
+    constraint info_consumer_id_fk
+        foreign key (consumer_id) references consumer (id)
+);
+
+create table if not exists producer
+(
+    id int not null
+        primary key,
+    constraint producer_user_id_fk
+        foreign key (id) references user (id)
+);
+
+create table if not exists report
+(
+    id            int          not null
+        primary key,
+    report_desc   varchar(512) null,
+    report_level  int          not null,
+    report_date   date         null,
+    location_lat  mediumtext   null,
+    location_long mediumtext   null,
+    producer_id   int          null,
+    tag_id        int          null,
+    status_id     int          null,
+    constraint report_producer_id_fk
+        foreign key (producer_id) references producer (id),
+    constraint report_status_id_fk
+        foreign key (status_id) references status (id),
+    constraint report_tag_id_fk
+        foreign key (tag_id) references tag (id)
+);
+
+create table if not exists image
+(
+    id          int auto_increment
+        primary key,
+    image_name  varchar(255) not null,
+    img_desc    int          null,
+    path        varchar(255) not null,
+    report_id   int          null,
+    producer_id int          null,
+    constraint image_producer_id_fk
+        foreign key (producer_id) references producer (id),
+    constraint image_report_id_fk
+        foreign key (report_id) references report (id)
+);
+
+create table if not exists vote
+(
+    id          int        not null
+        primary key,
+    vote_value  tinyint(1) not null,
+    producer_id int        not null,
+    report_id   int        not null,
+    constraint vote_producer_id_fk
+        foreign key (producer_id) references producer (id),
+    constraint vote_report_id_fk
+        foreign key (report_id) references report (id)
+);
+
