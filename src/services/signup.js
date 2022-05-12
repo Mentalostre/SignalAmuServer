@@ -5,7 +5,7 @@ import {eventEmitter} from "../config/events/event-config.js";
 const signup_service= async (req, res)=>{
     let mail = req.body.email;
     let password = req.body.password;
-    let encrypted_password = encrypt_password(password);
+    let encrypted_password = hash(password);
     let names = get_names(mail);
     let key = generate_key();
     let data = {
@@ -52,9 +52,6 @@ const get_names = (mail) =>{
 }
 
 
-const encrypt_password = (password) =>{
-    return hash(password);
-}
 
 
 /////////////////////////////////////

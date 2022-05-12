@@ -23,9 +23,7 @@ const send_mail = async (data)=>{
         subject: 'Confirmez votre compte Signal\'AMU ',
         html: getHtml('http://localhost:3000/validate-email/' + data.last_name + '/' + data.key, data.first_name[0].toUpperCase() + data.first_name.substring(1))
     };
-
     try {
-
         const result = await transporter.sendMail(mailOptions);
         return result;
     }catch (err){
@@ -98,7 +96,7 @@ const getHtml = (url, nom)=>{
         '<td align="center" class="sm-px-20" style="padding-left: 4px; padding-right: 4px;">\n' +
         '<table style="width: 100%;" role="presentation">\n' +
         '<tr>\n' +
-        '<td style="background-color: #303030; border-radius: 4px; font-size: 16px; padding: 40px; text-align: left; color: #bdbdbd;">\n' +
+        '<td style="background-color: #303030; border-radius: 4px; font-size: 16px; padding: 20px; text-align: left; color: #bdbdbd;">\n' +
         '<div>\n' +
         '<a href="" style="text-decoration: none;">\n' +
         '<img src="https://i.imgur.com/2mxaBIf.png" width="100" alt="Signal\'AMU Logo" style="border: 0; line-height: 100%; max-width: 100%; vertical-align: middle;">\n' +
