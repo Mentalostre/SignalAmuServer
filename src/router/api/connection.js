@@ -12,7 +12,7 @@ export const connection = (router)=>{
         signup_service);
 
     router.post('/api/signin',
-        bodyParser.urlencoded,
+        bodyParser.urlencoded({extended:true}),
         is_valid_req_signup_service,
         signin_service)
 }
