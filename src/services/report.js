@@ -1,4 +1,5 @@
-import {report_post_db} from "../models/report.js";
+import {report_post_db, report_get_db} from "../models/report.js";
+import {get_tag_db} from "../models/tag.js";
 
 const report_service = async (req, res)=>{
     let data = {
@@ -14,6 +15,25 @@ const report_service = async (req, res)=>{
         res:result
     })
 };
+
+
+const get_report = async ()=>{
+    try {
+        let result = await report_get_db();
+        let reports = [];
+        result.forEach((obj)=>{
+            reports.push(obj)
+        })
+        return {res: 1, reports: reports};
+    }catch (err){
+        return {res:69};
+    }
+}
+
+const report_get_service = async (req, res)=>{
+    let result = await get_report();
+    res.send(result)
+}
 
 const insert_data_report = async (data)=>{
     try {
@@ -34,4 +54,4 @@ const is_valid_post_report = (req, res, next)=>{
     }
 }
 
-export {report_service, is_valid_post_report};
+export {report_service, is_valid_post_report, report_get_service};

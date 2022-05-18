@@ -7,7 +7,7 @@ const post_tag_service = async (req, res)=>{
 
 const get_tag_service = async (req, res)=>{
     let result = await get_tag();
-    res.send(result)
+    res.send(result);
 }
 
 const get_tag = async ()=>{
