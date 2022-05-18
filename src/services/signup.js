@@ -81,7 +81,6 @@ const validate_amu_email = (email)=>{
 const is_valid_req_signup_service = (req, res, next)=>{
     if (req.body.email && req.body.password) next();
     else {
-        res.statusMessage = "Invalid request";
         res.status(200).send({
             res:50
         });

@@ -1,5 +1,5 @@
 import {hash} from "../utils/sha256-hasher.js";
-import {signin_db} from "../models/signin.js";
+import {signin_db, is_verified_db} from "../models/signin.js";
 
 const signin_service = async (req, res)=>{
     let mail = req.body.email;
@@ -21,6 +21,21 @@ const signin_service = async (req, res)=>{
     }
 }
 
+const is_mail_verified = async (req, res, next)=>{
+    try {
+        let result = await is_verified_db(req.body.email);
+        if(result.is_verified === 0){
+            res.send({res:25});
+        }
+        else{
+            next();
+        }
+    }
+    catch (err){
+        res.send({res:25});
+    }
+}
+
 const is_same_password = (p1, p2)=>{
     return p1===p2;
 }
@@ -31,5 +46,10 @@ const set_cookie = (req, mail)=>{
     };
 }
 
+const remove_cookie = (req, res)=>{
+    req.session = null;
+    res.send({res:1});
+}
 
-export {signin_service}
+
+export {signin_service, remove_cookie, is_mail_verified}
