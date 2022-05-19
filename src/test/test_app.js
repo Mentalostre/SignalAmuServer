@@ -1,5 +1,11 @@
-const generate_key = ()=>{
-    return Math.round((Math.random() * 100000) * 72);
-}
+import {io} from "socket.io-client"
 
-console.log(generate_key())
+console.log("allo")
+
+const socket = io("http://localhost");
+
+
+socket.on("allo", () => {
+    // revert to classic upgrade
+    console.log("maimouna")
+});

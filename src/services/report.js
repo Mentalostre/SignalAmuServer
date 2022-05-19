@@ -1,5 +1,6 @@
 import {report_post_db, report_get_db} from "../models/report.js";
 import {get_tag_db} from "../models/tag.js";
+import {emit_new_report} from "../config/socket/socket-config.js";
 
 const report_service = async (req, res)=>{
     let data = {
@@ -11,6 +12,9 @@ const report_service = async (req, res)=>{
         mail: req.session.mail
     };
     let result = await insert_data_report(data);
+    if(result ===1){
+        emit_new_report();
+    }
     res.send({
         res:result
     })

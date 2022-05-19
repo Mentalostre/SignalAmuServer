@@ -23,6 +23,8 @@
     "googleapis": "^100.0.0",
     "mariadb": "^3.0.0",
     "node-env-run": "^4.0.2",
-    "nodemailer": "^6.7.5"
+    "nodemailer": "^6.7.5",
+    "socket.io": "^4.5.1",
+    "socket.io-client": "^4.5.1"
   }
 }
