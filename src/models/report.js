@@ -9,6 +9,7 @@ const report_post_db = (data)=>{
     return new Promise(async (resolve, reject)=>{
         try {
             let result = (await conn).query(insert_post_query, [data.desc, data.level, data.location_lat, data.location_long, data.tag_id, data.mail]);
+            await (await conn).release();
             resolve(result);
         }catch (err){
             reject(err);
@@ -21,6 +22,7 @@ const report_get_db = ()=>{
     return new Promise(async (resolve, reject)=>{
         try {
             let result = (await conn).query(get_query);
+            await (await conn).release();
             resolve(result);
         }catch (err){
             reject(err);

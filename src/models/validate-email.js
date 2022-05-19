@@ -8,7 +8,7 @@ const validate_email_db = async (key)=>{
   return new Promise(async (resolve, reject)=>{
     try {
       let result = await conn.query(sql_query_validate_email, [key]);
-      await conn.release();
+      await (await conn).release();
       resolve(result);
     }catch (err){
       reject(err);
@@ -21,7 +21,7 @@ const update_user_status_db = async(key)=>{
   return new Promise(async (resolve, reject)=>{
     try {
       await conn.query(sql_query_update_user_status, [key]);
-      await conn.release();
+      await (await conn).release();
       resolve();
     }
     catch (err){

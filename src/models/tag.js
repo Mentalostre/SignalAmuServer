@@ -8,6 +8,7 @@ const post_tag_db = (tag_name)=>{
     return new Promise(async (resolve, reject)=>{
         try {
             let result = (await conn).query(insert_tag_query, [tag_name]);
+            await (await conn).release();
             resolve(result);
 
         }catch (err){
@@ -21,6 +22,7 @@ const get_tag_db = ()=>{
     return new Promise(async (resolve, reject)=>{
         try {
             let result = (await conn).query(get_tag_query);
+            await (await conn).release();
             resolve(result);
         }catch (err){
             reject(err);

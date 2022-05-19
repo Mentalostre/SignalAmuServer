@@ -9,6 +9,7 @@ const signin_db = async (mail)=>{
         try{
 
             let result = await conn.query(get_password_query, [mail]);
+            await (await conn).release();
             resolve(result[0]);
         }catch (err){
             reject(err);
@@ -21,6 +22,7 @@ const is_verified_db = async(mail)=>{
     return new Promise(async (resolve, reject)=>{
         try {
             let result = await conn.query(get_is_verified_query, [mail]);
+            await (await conn).release();
             resolve(result[0]);
         }catch (err){
             reject(err);

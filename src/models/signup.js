@@ -8,7 +8,7 @@ const signup_db =  async (data)=>{
     return new Promise(async (resolve, reject)=>{
         try {
             let result = await conn.query(signup_query, insert_data);
-            await conn.release();
+            await (await conn).release();
             resolve();
         }catch (err){
             reject(err);
