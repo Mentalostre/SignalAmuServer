@@ -4,11 +4,11 @@ const sql_query_validate_email = "SELECT (last_name) FROM user WHERE key_verific
 const sql_query_update_user_status = "UPDATE user SET is_verified = 1 WHERE key_verification = ?"
 
 const validate_email_db = async (key)=>{
-  let conn = await pool.getConnection();
   return new Promise(async (resolve, reject)=>{
+    const conn = await pool.getConnection();
     try {
       let result = await conn.query(sql_query_validate_email, [key]);
-      await (await conn).release();
+      await conn.release();
       resolve(result);
     }catch (err){
       reject(err);
@@ -17,11 +17,11 @@ const validate_email_db = async (key)=>{
 };
 
 const update_user_status_db = async(key)=>{
-  let conn = await pool.getConnection();
   return new Promise(async (resolve, reject)=>{
+    let conn = await pool.getConnection();
     try {
       await conn.query(sql_query_update_user_status, [key]);
-      await (await conn).release();
+      await conn.release();
       resolve();
     }
     catch (err){

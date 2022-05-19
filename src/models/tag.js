@@ -4,11 +4,11 @@ const insert_tag_query = "INSERT INTO tag (tag_name) VALUES (?)";
 const get_tag_query = "SELECT * FROM tag";
 
 const post_tag_db = (tag_name)=>{
-    const conn = pool.getConnection();
     return new Promise(async (resolve, reject)=>{
+        const conn = await pool.getConnection();
         try {
-            let result = (await conn).query(insert_tag_query, [tag_name]);
-            await (await conn).release();
+            let result = await conn.query(insert_tag_query, [tag_name]);
+            await conn.release();
             resolve(result);
 
         }catch (err){
@@ -18,11 +18,12 @@ const post_tag_db = (tag_name)=>{
 }
 
 const get_tag_db = ()=>{
-    const conn = pool.getConnection();
+
     return new Promise(async (resolve, reject)=>{
+        const conn = await pool.getConnection();
         try {
-            let result = (await conn).query(get_tag_query);
-            await (await conn).release();
+            let result = await conn.query(get_tag_query);
+            await conn.release();
             resolve(result);
         }catch (err){
             reject(err);

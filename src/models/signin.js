@@ -4,12 +4,11 @@ const get_password_query = "SELECT password FROM user WHERE user_email = ?";
 const get_is_verified_query = "SELECT is_verified FROM user WHERE user_email = ?";
 
 const signin_db = async (mail)=>{
-    let conn = await pool.getConnection();
     return new Promise(async (resolve, reject)=>{
+        let conn = await pool.getConnection();
         try{
-
             let result = await conn.query(get_password_query, [mail]);
-            await (await conn).release();
+            await conn.release();
             resolve(result[0]);
         }catch (err){
             reject(err);
@@ -18,11 +17,11 @@ const signin_db = async (mail)=>{
 };
 
 const is_verified_db = async(mail)=>{
-    let conn = await pool.getConnection();
     return new Promise(async (resolve, reject)=>{
+        const conn = await pool.getConnection();
         try {
             let result = await conn.query(get_is_verified_query, [mail]);
-            await (await conn).release();
+            await conn.release();
             resolve(result[0]);
         }catch (err){
             reject(err);
