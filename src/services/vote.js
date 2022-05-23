@@ -1,7 +1,6 @@
 import {post_vote_db} from "../models/vote.js";
 
 const vote_post_service = async (req, res)=>{
-    console.log(req.body);
     let mail = req.session.mail;
     let report_id = req.body.report_id;
     let vote_value = req.body.vote_value;
