@@ -1,10 +1,14 @@
 import {post_vote_db} from "../models/vote.js";
+import {emit_new_report} from "../config/socket/socket-config.js";
 
 const vote_post_service = async (req, res)=>{
     let mail = req.session.mail;
     let report_id = req.body.report_id;
     let vote_value = req.body.vote_value;
     let result = await post_vote(vote_value, report_id, mail);
+    if(result===1){
+        emit_new_report();
+    }
     res.send({res:result});
 }
 
