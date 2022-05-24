@@ -1,4 +1,4 @@
-import {report_post_db, report_get_db} from "../models/report.js";
+import {report_post_db, report_get_db, report_validate_post} from "../models/report.js";
 import {get_tag_db} from "../models/tag.js";
 import {emit_new_report} from "../config/socket/socket-config.js";
 
@@ -19,6 +19,16 @@ const report_service = async (req, res)=>{
         res:result
     })
 };
+
+const post_validate_report = async (req, res)=>{
+    await report_validate_post(req.query.report_id);
+    res.send({res:1});
+}
+
+const is_valid_post_validate_report = (req, res, next)=>{
+    if(req.query.report_id) next();
+    else res.send({res:50})
+}
 
 
 const get_report = async ()=>{
@@ -58,4 +68,4 @@ const is_valid_post_report = (req, res, next)=>{
     }
 }
 
-export {report_service, is_valid_post_report, report_get_service};
+export {report_service, is_valid_post_report, report_get_service, post_validate_report, is_valid_post_validate_report};
