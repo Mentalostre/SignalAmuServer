@@ -1,4 +1,4 @@
-import {post_info_db} from "../models/info.js";
+import {get_info_db, post_info_db} from "../models/info.js";
 
 const post_info_service = async (req, res)=>{
     let tel = req.body.tel;
@@ -19,5 +19,10 @@ const info_insert = async (tel, info_mail, info_desc, mail)=>{
     }
 }
 
+const get_info_service = async (req, res)=>{
+    let result = await get_info_db();
+    res.send({res:1, infos:result});
+}
 
-export { post_info_service };
+
+export { post_info_service, get_info_service };
