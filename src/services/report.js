@@ -1,5 +1,5 @@
-import {report_post_db, report_get_db, report_validate_post} from "../models/report.js";
-import {get_tag_db} from "../models/tag.js";
+import {report_post_db, report_get_db, report_validate_post, post_image_db} from "../models/report.js";
+import fs from 'fs';
 import {emit_new_report} from "../config/socket/socket-config.js";
 
 const report_service = async (req, res)=>{
@@ -68,4 +68,12 @@ const is_valid_post_report = (req, res, next)=>{
     }
 }
 
-export {report_service, is_valid_post_report, report_get_service, post_validate_report, is_valid_post_validate_report};
+const post_image = async (req, res)=>{
+    console.log(JSON.stringify(req.body));
+    let picture = req.file;
+    await post_image_db(picture.filename, req.body.report_id, req.session.mail);
+    res.send({res:1})
+}
+
+
+export {report_service, is_valid_post_report, report_get_service, post_validate_report, is_valid_post_validate_report, post_image};
