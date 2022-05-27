@@ -8,6 +8,8 @@ const validate_report_query = "UPDATE report SET status = 1 WHERE id = ?";
 
 const post_picture_query = 'INSERT INTO image (image_name, report_id, producer_id) VALUE(?, ?, (SELECT id FROM producer WHERE user_id = (SELECT id FROM user WHERE user_email=?)))'
 
+const get_picture_query = 'SELECT image_name FROM image where report_id = ?'
+
 const report_validate_post = (report_id)=>{
     return new Promise(async(resolve, reject)=>{
         const conn = await pool.getConnection();
@@ -51,7 +53,6 @@ const post_image_db = (picture_name, report_id, mail)=>{
     return new Promise(async(resolve,reject)=>{
         const conn = await pool.getConnection();
         try {
-
             await conn.query(post_picture_query, [picture_name, report_id, mail]);
             await conn.release();
             resolve();
@@ -62,9 +63,22 @@ const post_image_db = (picture_name, report_id, mail)=>{
     })
 }
 
+const get_image_name_db = (report_id)=>{
+    return new Promise(async (resolve, reject)=>{
+        const conn = await pool.getConnection();
+        try {
+            let result = await conn.query(get_picture_query, [report_id]);
+            resolve(result);
+        }catch (err){
+            reject(err);
+        }
+    })
+}
+
 export {
     report_post_db,
     report_get_db,
     report_validate_post,
-    post_image_db
+    post_image_db,
+    get_image_name_db
 };

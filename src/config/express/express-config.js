@@ -10,6 +10,8 @@ export function express_config(){
 
     app.use(cookieSessionConfig);
 
+    app.use('/api/image/upload', express.static('./upload'));
+
     io_config(app);
 
     return app;

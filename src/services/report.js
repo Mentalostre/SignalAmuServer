@@ -1,4 +1,10 @@
-import {report_post_db, report_get_db, report_validate_post, post_image_db} from "../models/report.js";
+import {
+    report_post_db,
+    report_get_db,
+    report_validate_post,
+    post_image_db,
+    get_image_name_db
+} from "../models/report.js";
 import fs from 'fs';
 import {emit_new_report} from "../config/socket/socket-config.js";
 
@@ -79,6 +85,31 @@ const is_valid_post_image = (req, res, next)=>{
     else res.send({res:50});
 }
 
+
+const get_report_image_service = async (req, res)=>{
+    let report_id = req.params.reportid;
+    let image_names = await get_images_names(report_id);
+    res.send({res:1, images_name:image_names });
+}
+
+const get_images_names = async(report_id)=>{
+    let names = await get_image_name_db(report_id);
+    let names_array = [];
+    names.forEach((key)=>{
+        names_array.push(key.image_name)
+    })
+    return names_array;
+}
+
+
+
+
+
+
+
+
+
+
 export {
     report_service,
     is_valid_post_report,
@@ -86,5 +117,6 @@ export {
     post_validate_report,
     is_valid_post_validate_report,
     post_image,
-    is_valid_post_image
+    is_valid_post_image,
+    get_report_image_service
 };
