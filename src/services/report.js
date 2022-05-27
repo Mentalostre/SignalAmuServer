@@ -69,11 +69,22 @@ const is_valid_post_report = (req, res, next)=>{
 }
 
 const post_image = async (req, res)=>{
-    console.log(JSON.stringify(req.body));
     let picture = req.file;
     await post_image_db(picture.filename, req.body.report_id, req.session.mail);
     res.send({res:1})
 }
 
+const is_valid_post_image = (req, res, next)=>{
+    if(req.report_id && req.file ) next();
+    else res.send({res:50});
+}
 
-export {report_service, is_valid_post_report, report_get_service, post_validate_report, is_valid_post_validate_report, post_image};
+export {
+    report_service,
+    is_valid_post_report,
+    report_get_service,
+    post_validate_report,
+    is_valid_post_validate_report,
+    post_image,
+    is_valid_post_image
+};

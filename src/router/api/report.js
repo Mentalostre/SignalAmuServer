@@ -9,7 +9,7 @@ import {
     is_valid_post_report,
     report_get_service,
     post_validate_report,
-    is_valid_post_validate_report, post_image
+    is_valid_post_validate_report, post_image, is_valid_post_image
 } from "../../services/report.js";
 
 export const report = (router)=>{
@@ -19,6 +19,6 @@ export const report = (router)=>{
 
     router.post('/api/report/validate', bodyParser.urlencoded({extended: true}),is_registered_admin, is_valid_post_validate_report, post_validate_report);
 
-    router.post('/api/report/image', upload.single('picture'), is_registered, post_image);
+    router.post('/api/report/image',is_registered, upload.single('picture'), is_valid_post_image , post_image);
 
 }
