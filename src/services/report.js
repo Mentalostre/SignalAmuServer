@@ -77,12 +77,17 @@ const is_valid_post_report = (req, res, next)=>{
 
 const post_image = async (req, res)=>{
     let picture = req.file;
-    await post_image_db(picture.filename, req.body.report_id, req.session.mail);
-    res.send({res:1})
+    try{
+        await post_image_db(picture.filename, req.body.report_id, req.session.mail);
+        res.send({res:1})
+
+    }
+    catch (e) {
+        res.send({res:69})
+    }
 }
 
 const is_valid_post_image = (req, res, next)=>{
-    console.log(req.body.picture)
     if(req.body.report_id) next();
     else res.send({res:50});
 }
