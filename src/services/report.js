@@ -27,7 +27,8 @@ const report_service = async (req, res)=>{
 };
 
 const post_validate_report = async (req, res)=>{
-    await report_validate_post(req.query.report_id);
+    let mail = req.session.mail;
+    await report_validate_post(req.query.report_id, mail);
     res.send({res:1});
 }
 
@@ -81,7 +82,8 @@ const post_image = async (req, res)=>{
 }
 
 const is_valid_post_image = (req, res, next)=>{
-    if(req.report_id && req.file ) next();
+    console.log(req.body.picture)
+    if(req.body.report_id) next();
     else res.send({res:50});
 }
 

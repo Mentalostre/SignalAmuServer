@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>Page administrateur</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <style>
+  body{
+    margin: 0;
+    padding: 0;
+    
+    font-family: 'Rubik', sans-serif;
+    background: #222;
+}
+
+.box {
+  left: 5%  ;
+      padding: 3%;
+      border-radius: 10%;
+      position:relative;
+      text-align: left;
+    }
+#administrateur{
+    position: relative;
+    width: 20%;
+}
+#add{
+      position: relative;
+      width: 10%;
+      background: none;
+      margin: 1%;
+      border: 2px solid #4120ba;
+      padding: 1% ;
+      outline: none;
+      color: white;
+      border-radius: 24px;
+      transition: 0.25s;
+      cursor: pointer;
+    }
+#add:hover {
+    background: #065096;
+}
+.table-responsive{
+    width: 80%;
+    height: auto;
+    margin-left: 5%;
+}
+table,td,th,tr,thead{
+    width: 50%;
+    position: relative;;
+    margin-right: 5%;
+    color:#afa5a5;
+    border: 1px solid rgb(237, 237, 240);
+}
+#table2{
+    margin-top: 5%;
+}
+#header{
+    text-align: center;
+}
+
+
+    
+
+    </style>
+  </head>
+<body>
+    <form class="box" action="" method="post">
+      <h3 style="color: white;">Ajouter un administrateur</h1>
+        <input type="mail" id="administrateur" placeholder="adresse e-mail">
+        <input type="submit" style="margin-top: 60px;" id="add" value="Ajouter">
+    </form>
+
+    <div class="table-responsive">
+        <table class="table" id="report">
+            <thead>
+              <tr>
+                <th colspan="6" id="header">Report
+                </th>
+              </tr>
+                <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">Level</th>
+                  <th scope="col">Latitude</th>
+                  <th scope="col">Longitude</th>
+                  <th scope="col">Tag</th>
+                  <th scope="col">Description</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <th scope="row">1</th>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <th scope="row">2</th>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <th scope="row">3</th>
+                  <td></td>
+                  <td> </td>
+                  <td></td>
+                </tr>
+              </tbody>
+        </table>
+    </div>
+
+    <div class="table-responsive" id="table2">
+    <table class="table" id="tag">
+        <thead>
+            <tr>
+              <th colspan="2" id="header">Tag Utilisateur
+              </th>
+            </tr>
+            <tr>
+                <th scope="col">#ID</th>
+                <th scope="col">Nom</th>
+              </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row">1</th>
+              <td>Mark</td>
+            </tr>
+            <tr>
+              <th scope="row">2</th>
+              <td>Jacob</td>
+            </tr>
+            <tr>
+              <th scope="row">3</th>
+              <td>Larry</td>
+            </tr>
+          </tbody>
+    </table>
+    </div>
+</body>
+</html>

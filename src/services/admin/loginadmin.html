@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>Login</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <style>@import url('https://fonts.googleapis.com/css?family=Rubik:300,400,500&display=swap');
+    body{
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: 'Rubik', sans-serif;
+        background: #222;
+    }
+    
+    .title{
+      position: relative;
+      text-align: center;
+      text-transform: uppercase;
+      font-size: 45px;
+      letter-spacing: 2px;
+      text-shadow: 2px 2px #203cba;
+      color: white;
+      margin-top: 5%;
+      margin-bottom: 4%;
+    }
+    
+    .box {
+      width: 25%;
+      height: 20%;
+      padding: 3%;
+      border-radius: 10%;
+      position:relative;
+      left: 35%;
+      background: #333;
+      text-align: center;
+    }
+    
+    
+    .box input[type = "password"] {
+      border:0;
+      background: none;
+      display: block;
+      margin: 30% auto;
+      text-align: center;
+      border: 2px solid white;
+      padding: 7% 6%;
+      width: 87%;
+      outline: none;
+      color: white;
+      border-radius: 24px;
+      transition: 0.25s;
+    }
+    
+    .box input[type = "password"]:focus {
+      
+      border-color: #4120ba;
+    }
+    
+    .box input[type = "submit"] {
+      border:0;
+      background: none;
+      display: block;
+      margin: 20% auto;
+      text-align: center;
+      border: 2px solid #4120ba;
+      padding: 5% 7%;
+      outline: none;
+      color: white;
+      border-radius: 24px;
+      transition: 0.25s;
+      cursor: pointer;
+    }
+    
+    .box input[type = "submit"]:hover {
+      background: #065096;
+    }
+    </style>
+    <script>
+      $(document).ready(()=>{
+        $('form').on('sumbit', function(e){
+          e.preventDefault();
+          let form_data = $(this).serialize();
+          $ajax({
+            url: this.action,
+            type: this.method,
+            data: form_data
+          })
+        })
+      })
+    </script>
+</head>
+
+<body>
+  <div><div class="title">Entrez votre mot de passe administrateur</div>
+  <form class="box" action="http://localhost:3000/admin/connection" method="post">
+      <input type="password" name="password" placeholder="Mot de passe">
+      <input type="submit" style="margin-top: 60px;" name="connexion" value="SE CONNECTER">
+  </form></div>
+</body>
+</html>
