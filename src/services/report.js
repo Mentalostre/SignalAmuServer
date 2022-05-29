@@ -92,7 +92,6 @@ const is_valid_post_image = (req, res, next)=>{
     else res.send({res:50});
 }
 
-
 const get_report_image_service = async (req, res)=>{
     let report_id = req.params.reportid;
     let image_names = await get_images_names(report_id);
@@ -107,15 +106,6 @@ const get_images_names = async(report_id)=>{
     })
     return names_array;
 }
-
-
-
-
-
-
-
-
-
 
 export {
     report_service,
