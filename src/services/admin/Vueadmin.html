@@ -1,143 +1,140 @@
 <!DOCTYPE html>
-<html>
-
+<html lang="fr">
 <head>
-  <meta charset="utf-8">
-  <title>Page administrateur</title>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-  <style>
-  body{
-    margin: 0;
-    padding: 0;
-    
-    font-family: 'Rubik', sans-serif;
-    background: #222;
-}
-
-.box {
-  left: 5%  ;
-      padding: 3%;
-      border-radius: 10%;
-      position:relative;
-      text-align: left;
-    }
-#administrateur{
-    position: relative;
-    width: 20%;
-}
-#add{
-      position: relative;
-      width: 10%;
-      background: none;
-      margin: 1%;
-      border: 2px solid #4120ba;
-      padding: 1% ;
-      outline: none;
-      color: white;
-      border-radius: 24px;
-      transition: 0.25s;
-      cursor: pointer;
-    }
-#add:hover {
-    background: #065096;
-}
-.table-responsive{
-    width: 80%;
-    height: auto;
-    margin-left: 5%;
-}
-table,td,th,tr,thead{
-    width: 50%;
-    position: relative;;
-    margin-right: 5%;
-    color:#afa5a5;
-    border: 1px solid rgb(237, 237, 240);
-}
-#table2{
-    margin-top: 5%;
-}
-#header{
-    text-align: center;
-}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link href="https://unpkg.com/bootstrap-table@1.18.3/dist/bootstrap-table.min.css" rel="stylesheet">
+    <script src="https://unpkg.com/bootstrap-table@1.18.3/dist/bootstrap-table.min.js"></script>
+    <script src="https://unpkg.com/bootstrap-table@1.16.0/dist/locale/bootstrap-table-fr-FR.min.js"></script>
 
 
-    
+    <title>Admin panel</title>
+
+    <style>
+
+
+        thead {
+            background: #222;
+            color: #ffffff;
+        }
+
+        table td {
+            background: #ffffff;
+        }
+
+        .fixed-table-container {
+            background: #ffffff;
+        }
+
+        .fixed-table-pagination {
+            color: #ffffff;
+        }
+
 
     </style>
-  </head>
-<body>
-    <form class="box" action="" method="post">
-      <h3 style="color: white;">Ajouter un administrateur</h1>
-        <input type="mail" id="administrateur" placeholder="adresse e-mail">
-        <input type="submit" style="margin-top: 60px;" id="add" value="Ajouter">
-    </form>
+</head>
+<body style="   font-family: 'Open Sans', sans-serif;
+                font-weight: 600;
+                background: #222;
+                height: 100%;
+                width: 100%">
 
-    <div class="table-responsive">
-        <table class="table" id="report">
+<div class="row justify-content-center" style="width: 100%;">
+    <div class="" style="padding: 3.333vw">
+        <div id="toolbar">
+            <button id="button" class="btn btn-secondary">Supprimer Client</button>
+        </div>
+        <table
+                id="table"
+                class="table-striped thead-dark table-hover "
+                data-toggle="table"
+                data-toolbar="#toolbar"
+                data-pagination="true"
+                data-height="900"
+                data-search="true"
+                data-silent-sort="false"
+                data-click-to-select="true"
+                data-url="http//localhost:3000/api/report">
             <thead>
-              <tr>
-                <th colspan="6" id="header">Report
-                </th>
-              </tr>
-                <tr>
-                  <th scope="col">#</th>
-                  <th scope="col">Level</th>
-                  <th scope="col">Latitude</th>
-                  <th scope="col">Longitude</th>
-                  <th scope="col">Tag</th>
-                  <th scope="col">Description</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <th scope="row">1</th>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                </tr>
-                <tr>
-                  <th scope="row">2</th>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                </tr>
-                <tr>
-                  <th scope="row">3</th>
-                  <td></td>
-                  <td> </td>
-                  <td></td>
-                </tr>
-              </tbody>
+            <tr>
+                <th data-field="status" data-checkbox="true"></th>
+                <th data-field="id" data-sortable="true">ID</th>
+                <th data-field="description">Description</th>
+                <th data-field="level" data-sortable="true">Level</th>
+                <th data-field="date" data-sortable="true">Date</th>
+                <th data-field="location_lat">Latitude</th>
+                <th data-field="location_long">Longitude</th>
+                <th data-field="tag_name">Type</th>
+                <th data-field="vote_count">Vote</th>
+                <th data-field="first_name">Prénom</th>
+                <th data-field="last_name">Nom</th>
+                <th data-field="user_email-mail">E-mail</th>
+            </tr>
+            </thead>
         </table>
     </div>
 
-    <div class="table-responsive" id="table2">
-    <table class="table" id="tag">
-        <thead>
+    <div class="" style="padding: 3.333vw">
+        <div id="toolbar1">
+            <button id="button1" class="btn btn-secondary">Supprimer Produit</button>
+        </div>
+        <table
+                id="table1"
+                class="table-striped thead-dark table-hover"
+                data-toggle="table"
+                data-toolbar="#toolbar1"
+                data-pagination="true"
+                data-height="900"
+                data-search="true"
+                data-click-to-select="true"
+                data-url="" >
+            <thead>
             <tr>
-              <th colspan="2" id="header">Tag Utilisateur
-              </th>
+                <th data-field="postId" data-checkbox="true"></th>
+                <th data-field="id" data-sortable="true">ID</th>
+                <th data-field="name" data-sortable="true">Nom</th>
+                <th data-field="email">Description</th>
+                <th data-field="body" data-sortable="true">Prix</th>
             </tr>
-            <tr>
-                <th scope="col">#ID</th>
-                <th scope="col">Nom</th>
-              </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <th scope="row">1</th>
-              <td>Mark</td>
-            </tr>
-            <tr>
-              <th scope="row">2</th>
-              <td>Jacob</td>
-            </tr>
-            <tr>
-              <th scope="row">3</th>
-              <td>Larry</td>
-            </tr>
-          </tbody>
-    </table>
+            </thead>
+        </table>
+
     </div>
+</div>
+
+<script>
+    $(function() {
+        $('#silentSort').change(function () {
+            $('#table').bootstrapTable('refreshOptions', {
+                silentSort: $('#silentSort').prop('checked')
+            })
+        })
+    })
+</script>
+
+<script>
+    $('#table1').bootstrapTable({
+        url: 'https://jsonplaceholder.typicode.com/comments?postId=1',
+        columns: [{
+            field: 'postId',
+            title: 'Post'
+        }, {
+            field: 'id',
+            title: 'Id'
+        }, {
+            field: 'name',
+            title: 'name'
+        },{
+            field: 'email',
+            title: 'email'
+        },{
+            field: 'body',
+            title: 'body'
+        }]
+    })
+</script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
 </body>
 </html>
