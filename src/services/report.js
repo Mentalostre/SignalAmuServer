@@ -47,6 +47,7 @@ const get_report = async ()=>{
         })
         return {res: 1, reports: reports};
     }catch (err){
+        console.log(err)
         return {res:69};
     }
 }
