@@ -1,7 +1,7 @@
 import {pool} from "../config/database/database-config.js";
 import {report} from "../router/api/report.js";
 
-const insert_post_query = "INSERT INTO report (report_desc, report_level, report_date, location_lat, location_long, tag_id, producer_id) VALUES (?,?,NOW(),?,?,?,(SELECT id FROM producer WHERE user_id = (SELECT id FROM user WHERE user_email=?)))";
+const insert_post_query = "INSERT INTO report (report_desc, report_level, report_date, location_lat, location_long, tag_name, producer_id) VALUES (?,?,?,?,?,?,(SELECT id FROM producer WHERE user_id = (SELECT id FROM user WHERE user_email=?)))";
 
 const get_query = "SELECT t1.id, t1.report_desc description, t1.report_level level, t1.report_date date, t1.location_lat, t1.location_long, status, t1.consumer_id ,t2.tag_name, getVote(t1.id) vote_count ,t3.first_name, t3.last_name, t3.user_email FROM report t1 INNER JOIN tag t2 ON t1.tag_id = t2.id INNER JOIN user t3 ON (SELECT user_id FROM producer WHERE id = t1.producer_id  ) = t3.id ";
 
@@ -29,8 +29,9 @@ const report_validate_post = (report_id, mail)=>{
 const report_post_db = (data)=>{
     return new Promise(async (resolve, reject)=>{
         const conn = await pool.getConnection();
+        const date = Date.now();
         try {
-            let result = conn.query(insert_post_query, [data.desc, data.level, data.location_lat, data.location_long, data.tag_id, data.mail]);
+            let result = conn.query(insert_post_query, [data.desc, data.level,date,data.location_lat, data.location_long, data.tag_name, data.mail]);
             await conn.release();
             resolve(result);
         }catch (err){

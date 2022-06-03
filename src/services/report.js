@@ -14,7 +14,7 @@ const report_service = async (req, res)=>{
         level: req.body.level,
         location_lat: req.body.location_lat,
         location_long: req.body.location_long,
-        tag_id: req.body.tag_id,
+        tag_name: req.body.tag_name,
         mail: req.session.mail
     };
     let result = await insert_data_report(data);
