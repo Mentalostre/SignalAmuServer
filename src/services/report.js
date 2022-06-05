@@ -68,7 +68,7 @@ const insert_data_report = async (data)=>{
 }
 
 const is_valid_post_report = (req, res, next)=>{
-    if(req.body.desc && req.body.level && req.body.location_lat && req.body.location_long && req.body.tag_id ){
+    if(req.body.desc && req.body.level && req.body.location_lat && req.body.location_long && req.body.tag_name ){
         next();
     }
     else{
