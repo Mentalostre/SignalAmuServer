@@ -1,5 +1,6 @@
 import path from 'path';
 import {fileURLToPath} from 'url';
+import {get_user_db} from "../../models/user.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -21,5 +22,10 @@ const get_admin_connection_service = (req,res)=>{
     res.sendFile(path.join(__dirname + '/loginadmin.html'));
 }
 
+const get_user_services = async (req, res)=>{
+    let users = await get_user_db();
+    res.send({res:1, users:users})
+}
 
-export {post_admin_connection_service, get_admin_connection_service}
+
+export {post_admin_connection_service, get_admin_connection_service, get_user_services}
