@@ -31,9 +31,9 @@ const report_post_db = (data)=>{
         const conn = await pool.getConnection();
         const date = Date.now();
         try {
-            let result = conn.query(insert_post_query, [data.desc, data.level,date,data.location_lat, data.location_long, data.tag_name, data.mail]);
+            let result = await conn.query(insert_post_query, [data.desc, data.level,date,data.location_lat, data.location_long, data.tag_name, data.mail]);
             await conn.release();
-            resolve(result);
+            resolve(result.insertId);
         }catch (err){
             reject(err);
         }

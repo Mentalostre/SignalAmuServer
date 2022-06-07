@@ -13,13 +13,13 @@ import {
 } from "../../services/report.js";
 
 export const report = (router)=>{
-    router.post('/api/report', bodyParser.urlencoded({extended: true}), is_registered, is_valid_post_report ,report_service);
+    router.post('/api/report', bodyParser.urlencoded({extended: true}), is_valid_post_report ,report_service);
 
     router.get('/api/report', report_get_service); // return all reports
 
     router.post('/api/report/validate', bodyParser.urlencoded({extended: true}),is_registered_admin, is_valid_post_validate_report, post_validate_report);
 
-    router.post('/api/report/image',is_registered, upload.single('picture'), is_valid_post_image , post_image);
+    router.post('/api/report/image/:id', upload.single('picture'), is_valid_post_image , post_image);
 
     router.get('/api/report/image/:reportid', is_registered, get_report_image_service)
 

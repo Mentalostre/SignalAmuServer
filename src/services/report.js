@@ -18,12 +18,11 @@ const report_service = async (req, res)=>{
         mail: req.session.mail
     };
     let result = await insert_data_report(data);
-    if(result ===1){
+    if(result.res === 1){
         emit_new_report();
     }
-    res.send({
-        res:result
-    })
+    console.log(result)
+    res.send(result)
 };
 
 const post_validate_report = async (req, res)=>{
@@ -59,11 +58,11 @@ const report_get_service = async (req, res)=>{
 
 const insert_data_report = async (data)=>{
     try {
-        await report_post_db(data);
-        return 1;
+        let lastId = await report_post_db(data);
+        return {res:1, lastId:Number(lastId)};
     }catch (err){
         console.log(err);
-        return 69;
+        return {res:69};
     }
 }
 
@@ -78,18 +77,24 @@ const is_valid_post_report = (req, res, next)=>{
 
 const post_image = async (req, res)=>{
     let picture = req.file;
+    console.log(req.headers)
+    console.log(picture)
+    console.log(req.params)
+    console.log(req.session)
     try{
-        await post_image_db(picture.filename, req.body.report_id, req.session.mail);
+
+        await post_image_db(picture.filename, req.params.id, req.session.mail);
         res.send({res:1})
 
     }
     catch (e) {
+        console.log(e)
         res.send({res:69})
     }
 }
 
 const is_valid_post_image = (req, res, next)=>{
-    if(req.body.report_id) next();
+    if(req.params.id) next();
     else res.send({res:50});
 }
 
