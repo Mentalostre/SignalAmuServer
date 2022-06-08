@@ -21,7 +21,6 @@ const report_service = async (req, res)=>{
     if(result.res === 1){
         emit_new_report();
     }
-    console.log(result)
     res.send(result)
 };
 
@@ -77,10 +76,6 @@ const is_valid_post_report = (req, res, next)=>{
 
 const post_image = async (req, res)=>{
     let picture = req.file;
-    console.log(req.headers)
-    console.log(picture)
-    console.log(req.params)
-    console.log(req.session)
     try{
 
         await post_image_db(picture.filename, req.params.id, req.session.mail);
