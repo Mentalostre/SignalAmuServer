@@ -31,7 +31,7 @@ const get_user_services = async (req, res)=>{
 const post_consumer_service = async (req, res)=>{
     let userId = req.params.id;
     try {
-        await post_consumer_db
+        await post_consumer_db(userId)
         res.send({res:1});
     }catch (err){
         res.send({res: 69});
