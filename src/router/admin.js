@@ -2,7 +2,7 @@ import bodyParser from "body-parser";
 import {
     post_admin_connection_service,
     get_admin_connection_service,
-    get_user_services
+    get_user_services, post_consumer_service
 } from "../services/admin/admin.js";
 
 export const admin = (router)=>{
@@ -11,4 +11,7 @@ export const admin = (router)=>{
     router.get('/admin/connection', get_admin_connection_service)
 
     router.get('/admin/user', get_user_services)
+
+    router.post('/admin/consumer/:id', post_consumer_service)
+
 }

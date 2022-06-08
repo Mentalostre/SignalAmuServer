@@ -1,6 +1,7 @@
 import path from 'path';
 import {fileURLToPath} from 'url';
 import {get_user_db} from "../../models/user.js";
+import {post_consumer_db} from "../../models/admin.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -27,5 +28,15 @@ const get_user_services = async (req, res)=>{
     res.send({res:1, users:users})
 }
 
+const post_consumer_service = async (req, res)=>{
+    let userId = req.params.id;
+    try {
+        await post_consumer_db
+        res.send({res:1});
+    }catch (err){
+        res.send({res: 69});
+    }
+}
 
-export {post_admin_connection_service, get_admin_connection_service, get_user_services}
+
+export {post_admin_connection_service, get_admin_connection_service, get_user_services, post_consumer_service}
