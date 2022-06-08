@@ -9,7 +9,6 @@
     <script src="https://unpkg.com/bootstrap-table@1.18.3/dist/bootstrap-table.min.js"></script>
     <script src="https://unpkg.com/bootstrap-table@1.16.0/dist/locale/bootstrap-table-fr-FR.min.js"></script>
 
-
     <title>Admin panel</title>
 
     <style>
@@ -32,20 +31,55 @@
             color: #ffffff;
         }
 
-
     </style>
 </head>
-<body style="   font-family: 'Open Sans', sans-serif;
+<body onload="loaded();" style="   font-family: 'Open Sans', sans-serif;
                 font-weight: 600;
                 background: #222;
                 height: 100%;
                 width: 100%">
 
-<div class="row justify-content-center" style="width: 100%;">
-    <div class="" style="padding: 3.333vw">
-        <div id="toolbar">
-            <button id="button" class="btn btn-secondary">Supprimer Client</button>
+<div class="modal  modal-dialog-scrollable " id="modal" tabindex="-1" role="dialog" aria-labelledby="formulaire" aria-hidden="true">
+    <div class="modal-dialog" id="modal-rgpd" role="document">
+        <div class="modal-content" style="background: #323232;">
+            <div class="modal-header" style="background-color: rgb(50, 50, 50); color: #ffffff">
+                <h5 class="modal-title" id="exampleModalLabel">Êtes-vous sûr</h5>
+                <button type="button" class="close" id="button" data-dismiss="modal" aria-label="Close" style="background-color:rgba(50, 50, 50, 0); border: none;">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" style="background: #323232; border-radius: 10px; align-content: center;">
+                <form id="data">
+                    <div class="form-row">
+                        <div class="col-md-6 mb-3">
+                            <label for="modalFirstname" class="col-form-label" style="color: #ffffff">Prénom : </label>
+                            <div id="modalFirstname" style="color: #ffffff">
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="modalName" style="color: #ffffff">Nom : </label>
+                            <div id="modalName" style="color: #ffffff"></div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="modalMail" style="color: #ffffff">E-mail :</label>
+                            <div id="modalMail" style="color: #ffffff"></div>
+                        </div>
+                    </div>
+                </form>
+
+                <div class="modal-footer">
+                    <p  style="font-size: 1rem; color: #ffffff; position: absolute; left: 1rem"></p>
+                    <button id="annuler"  class="btn btn-primary" type="submit" style="color: #204488; background-color: #ffffff;">Annuler</button>
+                    <button id="button1" class="btn btn-primary" type="submit" style="color: #ffffff; background-color: #204488; border-color: #204488; margin-right: 1rem">Passer administrateur</button>
+                </div>
+
+            </div>
         </div>
+    </div>
+</div>
+
+
+<div class="" style="padding: 3.333vw">
         <table
                 id="table"
                 class="table-striped thead-dark table-hover "
@@ -55,86 +89,130 @@
                 data-height="900"
                 data-search="true"
                 data-silent-sort="false"
-                data-click-to-select="true"
-                data-url="http//localhost:3000/api/report">
+                data-click-to-select="true">
             <thead>
             <tr>
-                <th data-field="status" data-checkbox="true"></th>
+                <th data-field="status" data-sortable="true">Status</th>
                 <th data-field="id" data-sortable="true">ID</th>
                 <th data-field="description">Description</th>
                 <th data-field="level" data-sortable="true">Level</th>
                 <th data-field="date" data-sortable="true">Date</th>
                 <th data-field="location_lat">Latitude</th>
                 <th data-field="location_long">Longitude</th>
+                <th data-field="consumer_id">Consumer Id</th>
                 <th data-field="tag_name">Type</th>
                 <th data-field="vote_count">Vote</th>
                 <th data-field="first_name">Prénom</th>
                 <th data-field="last_name">Nom</th>
-                <th data-field="user_email-mail">E-mail</th>
+                <th data-field="user_email">E-mail</th>
             </tr>
             </thead>
         </table>
     </div>
 
-    <div class="" style="padding: 3.333vw">
-        <div id="toolbar1">
-            <button id="button1" class="btn btn-secondary">Supprimer Produit</button>
-        </div>
+    <div class="row justify-content-center" style="width: 100%;">
         <table
-                id="table1"
+                id="tableUser"
                 class="table-striped thead-dark table-hover"
                 data-toggle="table"
                 data-toolbar="#toolbar1"
                 data-pagination="true"
                 data-height="900"
                 data-search="true"
-                data-click-to-select="true"
-                data-url="" >
+                data-click-to-select="true">
             <thead>
             <tr>
-                <th data-field="postId" data-checkbox="true"></th>
-                <th data-field="id" data-sortable="true">ID</th>
-                <th data-field="name" data-sortable="true">Nom</th>
-                <th data-field="email">Description</th>
-                <th data-field="body" data-sortable="true">Prix</th>
+                <th data-field="id" data-sortable="true">User ID</th>
+                <th data-field="email" data-sortable="true">Email</th>
+                <th data-field="first_name" data-sortable="true">Prénom</th>
+                <th data-field="last_name" data-sortable="true">Nom</th>
+                <th data-field="is_verified" data-sortable="true">Vérifié</th>
+                <th data-field="consumer_id" data-sortable="true">Consumer ID</th>
             </tr>
             </thead>
         </table>
-
     </div>
-</div>
+
+
+
 
 <script>
-    $(function() {
-        $('#silentSort').change(function () {
-            $('#table').bootstrapTable('refreshOptions', {
-                silentSort: $('#silentSort').prop('checked')
-            })
+
+    function loaded(){
+        var myArray;
+
+        var table = $('#table');
+        $.getJSON('http://localhost:3000/api/report', function(data) {
+                myArray = data.reports;
+                table.bootstrapTable({data : myArray});
+                console.log(myArray)
+            }
+        )
+
+        var users;
+        var tableUser = $('#tableUser');
+        $.getJSON('http://localhost:3000/admin/user', function(data) {
+                users = data.users;
+                tableUser.bootstrapTable({data : users});
+                console.log(users)
+            }
+        )
+    }
+
+</script>
+
+
+
+<script>
+    $(window).ready(function(){
+
+        var name = document.getElementById('modalName'),
+            firstname = document.getElementById('modalFirstname'),
+            email = document.getElementById('modalMail');
+        let $orderModal = $('#modal'),
+            mail;
+
+
+        $orderModal.hide()
+
+        $('#tableUser').on('click-row.bs.table', function(row, $element, field){
+            firstname.textContent = $element.first_name
+            name.textContent = $element.last_name
+            email.textContent = $element.email
+            mail = $element.email
+            console.log(mail)
+            $('#modal').show();
         })
+
+        $('#button').click(function(event){
+            $('#modal').hide();
+        })
+
+        function clearInput(){
+            $orderModal.find("input,textarea,select")
+                .val('')
+                .end()
+            $('#modal').hide();
+        }
+
+        $("#annuler").click(function(event){
+            $('#modal').hide();
+        })
+
+        $("#button1").click(function (event) {
+
+
+            $('#modal').hide();
+        });
+
+
+
+        function displayModal(){
+            $('#modal').show();
+        }
     })
 </script>
 
-<script>
-    $('#table1').bootstrapTable({
-        url: 'https://jsonplaceholder.typicode.com/comments?postId=1',
-        columns: [{
-            field: 'postId',
-            title: 'Post'
-        }, {
-            field: 'id',
-            title: 'Id'
-        }, {
-            field: 'name',
-            title: 'name'
-        },{
-            field: 'email',
-            title: 'email'
-        },{
-            field: 'body',
-            title: 'body'
-        }]
-    })
-</script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
 </body>
 </html>
