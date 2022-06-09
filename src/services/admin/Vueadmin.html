@@ -8,7 +8,7 @@
     <link href="https://unpkg.com/bootstrap-table@1.18.3/dist/bootstrap-table.min.css" rel="stylesheet">
     <script src="https://unpkg.com/bootstrap-table@1.18.3/dist/bootstrap-table.min.js"></script>
     <script src="https://unpkg.com/bootstrap-table@1.16.0/dist/locale/bootstrap-table-fr-FR.min.js"></script>
-    <link rel="stylesheet" href="https://unpkg.com/bootstrap-table@1.18.2/dist/bootstrap-table.min.css">
+
     <title>Admin panel</title>
 
     <style>
@@ -33,7 +33,7 @@
 
     </style>
 </head>
-<body onload="loaded();" style="   font-family: 'Open Sans', sans-serif;
+<body  style="   font-family: 'Open Sans', sans-serif;
                 font-weight: 600;
                 background: #222;
                 height: 100%;
@@ -69,6 +69,7 @@
 
                 <div class="modal-footer">
                     <p  style="font-size: 1rem; color: #ffffff; position: absolute; left: 1rem"></p>
+                    <div style="color: red" id="errormsg"></div>
                     <button id="annuler"  class="btn btn-primary" type="submit" style="color: #204488; background-color: #ffffff;">Annuler</button>
                     <button id="button1" class="btn btn-primary" type="submit" style="color: #ffffff; background-color: #204488; border-color: #204488; margin-right: 1rem">Passer administrateur</button>
                 </div>
@@ -79,7 +80,7 @@
 </div>
 
 
-<div class="" style="padding: 3.333vw">
+<div class="row justify-content-center" style="padding: 3.333vw">
         <table
                 id="table"
                 class="table-striped thead-dark table-hover "
@@ -111,7 +112,7 @@
         </table>
     </div>
 
-    <div class="row justify-content-center" style="width: 100%;">
+    <div class="row justify-content-center" style="padding: 3.333vw">
         <table
                 id="tableUser"
                 class="table-striped thead-dark table-hover"
@@ -163,45 +164,59 @@
             firstname = document.getElementById('modalFirstname'),
             email = document.getElementById('modalMail');
         let $orderModal = $('#modal'),
-            mail;
+            $error = $('#errormsg'),
+            idadmin;
 
 
         $orderModal.hide()
 
         $('#tableUser').on('click-row.bs.table', function(row, $element, field){
-            firstname.textContent = $element.first_name
-            name.textContent = $element.last_name
-            email.textContent = $element.email
-            mail = $element.email
-            console.log(mail)
-            $('#modal').show();
+            if ($element.consumer_id === null){
+                firstname.textContent = $element.first_name
+                name.textContent = $element.last_name
+                email.textContent = $element.email
+                idadmin = $element.id
+                console.log(idadmin)
+                $('#modal').show();
+            }
+            else{
+                alert($element.last_name + " " + $element.first_name + " est déjà administrateur")
+            }
+
         })
 
         $('#button').click(function(event){
+            $error.textContent = " ",
             $('#modal').hide();
         })
 
-        function clearInput(){
-            $orderModal.find("input,textarea,select")
-                .val('')
-                .end()
-            $('#modal').hide();
-        }
 
         $("#annuler").click(function(event){
+            $error.textContent = " ",
             $('#modal').hide();
         })
 
         $("#button1").click(function (event) {
-
-
-            $('#modal').hide();
+            let data = new FormData();
+            data.append('id' , idadmin)
+            $.ajax({
+                type: "POST",
+                enctype: 'x-www-form-urlencoded',
+                url: "http://localhost:3000/admin/consumer/"+ idadmin,
+                data: data,
+                processData: false,
+                contentType: false,
+                success: function (data) {
+                    $('#modal').hide();
+                },
+                error: function (e) {
+                    fail();
+                }
+            });
         });
 
-
-
-        function displayModal(){
-            $('#modal').show();
+        function fail(){
+            $error.textContent = "Une erreur s'est produite"
         }
     })
 </script>
