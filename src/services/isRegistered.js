@@ -1,6 +1,4 @@
 const is_registered = (req, res, next)=>{
-    console.log(req.headers)
-
     if(req.session.mail) {next();}
     else{
         res.send({res: 22});

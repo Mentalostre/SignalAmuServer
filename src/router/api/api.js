@@ -4,6 +4,7 @@ import {report} from "./report.js";
 import {tag} from "./tag.js";
 import {vote} from "./vote.js";
 import {info} from "./info.js";
+import {user} from "./user.js";
 
 export default (router)=>{
     welcome_Api(router);
@@ -11,5 +12,6 @@ export default (router)=>{
     report(router);
     tag(router);
     vote(router);
-    info(router)
+    info(router);
+    user(router);
 };
