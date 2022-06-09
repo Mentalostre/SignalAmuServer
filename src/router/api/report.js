@@ -15,7 +15,7 @@ import {
 export const report = (router)=>{
     router.post('/api/report', is_registered, bodyParser.urlencoded({extended: true}), is_valid_post_report ,report_service);
 
-    router.get('/api/report', is_registered, report_get_service); // return all reports
+    router.get('/api/report', report_get_service); // return all reports
 
     router.post('/api/report/validate', bodyParser.urlencoded({extended: true}),is_registered_admin, is_valid_post_validate_report, post_validate_report);
 

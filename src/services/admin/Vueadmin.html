@@ -208,6 +208,7 @@
                 contentType: false,
                 success: function (data) {
                     $('#modal').hide();
+                    $('#tableUser').bootstrapTable('refresh')
                 },
                 error: function (e) {
                     fail();
