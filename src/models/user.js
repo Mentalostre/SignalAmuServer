@@ -34,6 +34,7 @@ export const get_user_solo_db = (mail)=>{
                 return;
             }
             result = await conn.query('SELECT info_desc, info_email, tel FROM info JOIN consumer c on c.id = info.consumer_id WHERE consumer_id = ?', [consumer_id]);
+           await conn.release();
             res.info_desc = result[0].info_desc;
             res.info_email = result[0].info_email;
             res.consumer_id = consumer_id;

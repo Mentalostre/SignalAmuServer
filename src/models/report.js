@@ -72,6 +72,7 @@ const get_image_name_db = (report_id)=>{
         const conn = await pool.getConnection();
         try {
             let result = await conn.query(get_picture_query, [report_id]);
+            await conn.release();
             resolve(result);
         }catch (err){
             reject(err);
