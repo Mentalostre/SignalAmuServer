@@ -26,12 +26,12 @@ const report_service = async (req, res)=>{
 
 const post_validate_report = async (req, res)=>{
     let mail = req.session.mail;
-    await report_validate_post(req.query.report_id, mail);
+    await report_validate_post(req.body.report_id, mail);
     res.send({res:1});
 }
 
 const is_valid_post_validate_report = (req, res, next)=>{
-    if(req.query.report_id) next();
+    if(req.body.report_id) next();
     else res.send({res:50})
 }
 

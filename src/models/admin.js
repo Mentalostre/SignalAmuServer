@@ -9,6 +9,7 @@ const post_consumer_db = (id)=>{
         const conn = await pool.getConnection();
         try {
             let result = await conn.query(post_query,[id])
+            await conn.query('INSERT INTO info (tel, info_email, info_desc, consumer_id) VALUES (null,null,null,?)', [result.insertId] )
             await conn.release();
             resolve(result.insertId)
         }catch (err){
