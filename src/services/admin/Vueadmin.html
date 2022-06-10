@@ -241,7 +241,6 @@
         });
 
         $("#button2").click(function (event) {
-            console.log("azzad")
             let data2 = new FormData();
             data2.append('id', idadmin)
             $.ajax({
@@ -252,8 +251,8 @@
                 processData: false,
                 contentType: false,
                 success: function (data2) {
-                    console.log("fa")
                     $('#modal').hide();
+                    $('#tableUser').bootstrapTable('refresh')
                 },
                 error: function (e) {
                     fail();
