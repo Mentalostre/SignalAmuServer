@@ -42,6 +42,7 @@ const post_consumer_service_remove = async (req, res)=>{
     let userId = req.params.id;
     try {
         await post_consumer_remove_db(userId)
+        res.send({res:1});
     }catch (err){
         res.send({res: 69});
     }
