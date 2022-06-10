@@ -43,7 +43,7 @@
     <div class="modal-dialog" id="modal-rgpd" role="document">
         <div class="modal-content" style="background: #323232;">
             <div class="modal-header" style="background-color: rgb(50, 50, 50); color: #ffffff">
-                <h5 class="modal-title" id="exampleModalLabel">Êtes-vous sûr</h5>
+                <h5 class="modal-title" id="modalTitle"></h5>
                 <button type="button" class="close" id="button" data-dismiss="modal" aria-label="Close" style="background-color:rgba(50, 50, 50, 0); border: none;">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -70,8 +70,15 @@
                 <div class="modal-footer">
                     <p  style="font-size: 1rem; color: #ffffff; position: absolute; left: 1rem"></p>
                     <div style="color: red" id="errormsg"></div>
-                    <button id="annuler"  class="btn btn-primary" type="submit" style="color: #204488; background-color: #ffffff;">Annuler</button>
-                    <button id="button1" class="btn btn-primary" type="submit" style="color: #ffffff; background-color: #204488; border-color: #204488; margin-right: 1rem">Passer administrateur</button>
+                    <div id="ajouter" style="position: absolute ; margin-top: 3%">
+                        <button id="annuler"  class="btn btn-primary" type="submit" style="color: #204488; background-color: #ffffff;">Annuler</button>
+                        <button id="button1" class="btn btn-primary" type="submit" style="color: #ffffff; background-color: #204488; border-color: #204488; margin-right: 1rem">Passer administrateur</button>
+                    </div>
+                    <div id="supprimer" style="position: absolute ; margin-top: 3%" >
+                        <button id="annuler2"  class="btn btn-primary" type="submit" style="color: #204488; background-color: #ffffff;">Annuler</button>
+                        <button id="button2" class="btn btn-primary" type="submit" style="color: #ffffff; background-color: #204488; border-color: #204488 ; margin-right: 1rem">Supprimer Administrateur</button>
+                    </div>
+
                 </div>
 
             </div>
@@ -162,7 +169,8 @@
 
         var name = document.getElementById('modalName'),
             firstname = document.getElementById('modalFirstname'),
-            email = document.getElementById('modalMail');
+            email = document.getElementById('modalMail'),
+            title = document.getElementById('modalTitle');
         let $orderModal = $('#modal'),
             $error = $('#errormsg'),
             idadmin;
@@ -172,15 +180,26 @@
 
         $('#tableUser').on('click-row.bs.table', function(row, $element, field){
             if ($element.consumer_id === null){
+                title.textContent = "Êtes-vous sûr de vouloir passer administrateur :"
                 firstname.textContent = $element.first_name
                 name.textContent = $element.last_name
                 email.textContent = $element.email
                 idadmin = $element.id
                 console.log(idadmin)
                 $('#modal').show();
+                $('#ajouter').show();
+                $('#supprimer').hide();
             }
             else{
-                alert($element.last_name + " " + $element.first_name + " est déjà administrateur")
+                title.textContent = "Êtes-vous sûr de vouloir supprimer l'administrateur :"
+                firstname.textContent = $element.first_name
+                name.textContent = $element.last_name
+                email.textContent = $element.email
+                idadmin = $element.id
+                console.log(idadmin)
+                $('#modal').show();
+                $('#supprimer').show();
+                $('#ajouter').hide();
             }
 
         })
@@ -194,6 +213,11 @@
         $("#annuler").click(function(event){
             $error.textContent = " ",
             $('#modal').hide();
+        })
+
+        $('#annuler2').click(function(event){
+            $error.textContent = " ",
+                $('#modal').hide();
         })
 
         $("#button1").click(function (event) {
@@ -216,10 +240,35 @@
             });
         });
 
+        $("#button2").click(function (event) {
+            console.log("azzad")
+            let data2 = new FormData();
+            data2.append('id', idadmin)
+            $.ajax({
+                type: "DELETE",
+                enctype: 'x-www-form-urlencoded',
+                url: "http://localhost:3000/admin/consumer/"+ idadmin,
+                data: data2,
+                processData: false,
+                contentType: false,
+                success: function (data2) {
+                    console.log("fa")
+                    $('#modal').hide();
+                },
+                error: function (e) {
+                    fail();
+                }
+            });
+        });
+
         function fail(){
-            $error.textContent = "Une erreur s'est produite"
+            alert("Un problème est survenue")
         }
+
+
     })
+
+
 </script>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
