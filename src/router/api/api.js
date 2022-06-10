@@ -14,4 +14,5 @@ export default (router)=>{
     vote(router);
     info(router);
     user(router);
+    router.get('/api/ping', (req, res)=>{res.send({res: 1})})
 };
