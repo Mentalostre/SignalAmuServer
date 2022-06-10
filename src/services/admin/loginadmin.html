@@ -6,76 +6,172 @@
   <title>Login</title>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
   <style>@import url('https://fonts.googleapis.com/css?family=Rubik:300,400,500&display=swap');
-    body{
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-        font-family: 'Rubik', sans-serif;
-        background: #222;
+  html {
+    height: 100%;
+  }
+  body {
+    margin:0;
+    padding:0;
+    font-family: sans-serif;
+    background: linear-gradient(#141e30, #243b55);
+  }
+
+  .login-box {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 400px;
+    padding: 40px;
+    transform: translate(-50%, -50%);
+    background: rgba(0,0,0,.5);
+    box-sizing: border-box;
+    box-shadow: 0 15px 25px rgba(0,0,0,.6);
+    border-radius: 10px;
+  }
+
+  .login-box h2 {
+    margin: 0 0 30px;
+    padding: 0;
+    color: #fff;
+    text-align: center;
+  }
+
+  .login-box .user-box {
+    position: relative;
+  }
+
+  .login-box .user-box input {
+    width: 100%;
+    padding: 10px 0;
+    font-size: 16px;
+    color: #fff;
+    margin-bottom: 30px;
+    border: none;
+    border-bottom: 1px solid #fff;
+    outline: none;
+    background: transparent;
+  }
+  .login-box .user-box label {
+    position: absolute;
+    top:0;
+    left: 0;
+    padding: 10px 0;
+    font-size: 16px;
+    color: #fff;
+    pointer-events: none;
+    transition: .5s;
+  }
+
+  .login-box .user-box input:focus ~ label,
+  .login-box .user-box input:valid ~ label {
+    top: -20px;
+    left: 0;
+    color: #0066cc;
+    font-size: 12px;
+  }
+
+  .login-box form a {
+    position: relative;
+    display: inline-block;
+    padding: 10px 20px;
+    color: #0066cc;
+    font-size: 16px;
+    text-decoration: none;
+    text-transform: uppercase;
+    overflow: hidden;
+    transition: .5s;
+    margin-top: 40px;
+    letter-spacing: 4px
+  }
+
+  .login-box a:hover {
+    background: #0066cc;
+    color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 0 5px #0066cc,
+    0 0 25px #0066cc;
+  }
+
+  .login-box a span {
+    position: absolute;
+    display: block;
+  }
+
+  .login-box a span:nth-child(1) {
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, #0066cc);
+    animation: btn-anim1 1s linear infinite;
+  }
+
+  @keyframes btn-anim1 {
+    0% {
+      left: -100%;
     }
-    
-    .title{
-      position: relative;
-      text-align: center;
-      text-transform: uppercase;
-      font-size: 45px;
-      letter-spacing: 2px;
-      text-shadow: 2px 2px #203cba;
-      color: white;
-      margin-top: 5%;
-      margin-bottom: 4%;
+    50%,100% {
+      left: 100%;
     }
-    
-    .box {
-      width: 25%;
-      height: 20%;
-      padding: 3%;
-      border-radius: 10%;
-      position:relative;
-      left: 35%;
-      background: #333;
-      text-align: center;
+  }
+
+  .login-box a span:nth-child(2) {
+    top: -100%;
+    right: 0;
+    width: 2px;
+    height: 100%;
+    background: linear-gradient(180deg, transparent, #0066cc);
+    animation: btn-anim2 1s linear infinite;
+    animation-delay: .25s
+  }
+
+  @keyframes btn-anim2 {
+    0% {
+      top: -100%;
     }
-    
-    
-    .box input[type = "password"] {
-      border:0;
-      background: none;
-      display: block;
-      margin: 30% auto;
-      text-align: center;
-      border: 2px solid white;
-      padding: 7% 6%;
-      width: 87%;
-      outline: none;
-      color: white;
-      border-radius: 24px;
-      transition: 0.25s;
+    50%,100% {
+      top: 100%;
     }
-    
-    .box input[type = "password"]:focus {
-      
-      border-color: #4120ba;
+  }
+
+  .login-box a span:nth-child(3) {
+    bottom: 0;
+    right: -100%;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(270deg, transparent, #0066cc);
+    animation: btn-anim3 1s linear infinite;
+    animation-delay: .5s
+  }
+
+  @keyframes btn-anim3 {
+    0% {
+      right: -100%;
     }
-    
-    .box input[type = "submit"] {
-      border:0;
-      background: none;
-      display: block;
-      margin: 20% auto;
-      text-align: center;
-      border: 2px solid #4120ba;
-      padding: 5% 7%;
-      outline: none;
-      color: white;
-      border-radius: 24px;
-      transition: 0.25s;
-      cursor: pointer;
+    50%,100% {
+      right: 100%;
     }
-    
-    .box input[type = "submit"]:hover {
-      background: #065096;
+  }
+
+  .login-box a span:nth-child(4) {
+    bottom: -100%;
+    left: 0;
+    width: 2px;
+    height: 100%;
+    background: linear-gradient(360deg, transparent, #0066cc);
+    animation: btn-anim4 1s linear infinite;
+    animation-delay: .75s
+  }
+
+  @keyframes btn-anim4 {
+    0% {
+      bottom: -100%;
     }
+    50%,100% {
+      bottom: 100%;
+    }
+  }
+
     </style>
     <script>
       $(document).ready(()=>{
@@ -91,12 +187,21 @@
       })
     </script>
 </head>
+    <div class="login-box">
+      <h2>Admin Panel</h2>
+      <form action="http://localhost:3000/admin/connection" method="post">
+        <div class="user-box">
+          <input type="password" name="password">
+          <label>Mot de passe</label>
+        </div>
 
-<body>
-  <div><div class="title">Entrez votre mot de passe administrateur</div>
-  <form class="box" action="http://localhost:3000/admin/connection" method="post">
-      <input type="password" name="password" placeholder="Mot de passe">
-      <input type="submit" style="margin-top: 60px;" name="connexion" value="SE CONNECTER">
-  </form></div>
-</body>
+        <a type="submit" class="btn btn-outline-primary" >
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+          Se connecter
+        </a>
+      </form>
+    </div>
 </html>
