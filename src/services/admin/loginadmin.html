@@ -148,30 +148,6 @@
     0% {
       right: -100%;
     }
-    50%,100% {
-      right: 100%;
-    }
-  }
-
-  .login-box a span:nth-child(4) {
-    bottom: -100%;
-    left: 0;
-    width: 2px;
-    height: 100%;
-    background: linear-gradient(360deg, transparent, #0066cc);
-    animation: btn-anim4 1s linear infinite;
-    animation-delay: .75s
-  }
-
-  @keyframes btn-anim4 {
-    0% {
-      bottom: -100%;
-    }
-    50%,100% {
-      bottom: 100%;
-    }
-  }
-
     </style>
     <script>
       $(document).ready(()=>{
@@ -189,7 +165,7 @@
 </head>
     <div class="login-box">
       <h2>Admin Panel</h2>
-      <form action="http://localhost:3000/admin/connection" method="post">
+      <form action="http://ec2-13-38-197-192.eu-west-3.compute.amazonaws.com:3000/admin/connection" method="post">
         <div class="user-box">
           <input type="password" name="password">
           <label>Mot de passe</label>

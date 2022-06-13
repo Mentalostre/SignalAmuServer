@@ -12,7 +12,7 @@ const post_admin_connection_service = (req, res)=>{
         req.session = {
             admin:true
         };
-        res.sendFile(path.join(__dirname + '/Vueadmin.html'));
+        res.sendFile(path.join(__dirname + '/adminView.html'));
     }
     else{
         req.session = null;
