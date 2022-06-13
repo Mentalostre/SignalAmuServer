@@ -2,6 +2,7 @@ import path from 'path';
 import {fileURLToPath} from 'url';
 import {get_user_db} from "../../models/user.js";
 import {post_consumer_db, post_consumer_remove_db} from "../../models/admin.js";
+import {report_get_all_db, report_get_db} from "../../models/report.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -48,5 +49,19 @@ const post_consumer_service_remove = async (req, res)=>{
     }
 }
 
+const report_getALL_service = async (req, res)=>{
+    try {
+        let result = await report_get_all_db();
+        let reports = [];
+        result.forEach((obj)=>{
+            reports.push(obj)
+        })
+        res.send({res: 1, reports: reports});
+    }catch (err){
+        console.log(err)
+        return {res:69};
+    }
+}
 
-export {post_admin_connection_service, get_admin_connection_service, get_user_services, post_consumer_service, post_consumer_service_remove}
+
+export {post_admin_connection_service, get_admin_connection_service, get_user_services, post_consumer_service, post_consumer_service_remove, report_getALL_service}

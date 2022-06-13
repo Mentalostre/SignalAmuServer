@@ -5,6 +5,9 @@ const insert_post_query = "INSERT INTO report (report_desc, report_level, report
 
 const get_query = "SELECT t1.id, t1.report_desc description, t1.report_level level, t1.report_date date, t1.location_lat, t1.location_long, status, t1.consumer_id ,t1.tag_name, getVote(t1.id) vote_count ,t3.first_name, t3.last_name, t3.user_email FROM report t1 INNER JOIN user t3 ON (SELECT user_id FROM producer WHERE id = t1.producer_id  ) = t3.id WHERE  status = 0";
 
+const get_query_all = "SELECT t1.id, t1.report_desc description, t1.report_level level, t1.report_date date, t1.location_lat, t1.location_long, status, t1.consumer_id ,t1.tag_name, getVote(t1.id) vote_count ,t3.first_name, t3.last_name, t3.user_email FROM report t1 INNER JOIN user t3 ON (SELECT user_id FROM producer WHERE id = t1.producer_id  ) = t3.id";
+
+
 const validate_report_query = "UPDATE report SET status = 1 WHERE id = ?";
 const validate_report_query_set_consumer = "UPDATE report SET consumer_id = (SELECT id FROM consumer WHERE user_id = (SELECT id FROM user WHERE user_email=?)) WHERE id=?";
 
@@ -53,6 +56,19 @@ const report_get_db = ()=>{
     })
 }
 
+const report_get_all_db = ()=>{
+    return new Promise(async (resolve, reject)=>{
+        const conn = await pool.getConnection();
+        try {
+            let result = await conn.query(get_query_all);
+            await conn.release();
+            resolve(result);
+        }catch (err){
+            reject(err);
+        }
+    })
+}
+
 const post_image_db = (picture_name, report_id, mail)=>{
     return new Promise(async(resolve,reject)=>{
         const conn = await pool.getConnection();
@@ -85,5 +101,6 @@ export {
     report_get_db,
     report_validate_post,
     post_image_db,
-    get_image_name_db
+    get_image_name_db,
+    report_get_all_db
 };
