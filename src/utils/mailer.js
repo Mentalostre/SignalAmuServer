@@ -16,12 +16,15 @@ const transporter = nodemailer.createTransport({
         url:
     };
  */
+
+const d = process.env.DOMAIN_API
+
 const send_mail = async (data)=>{
     const mailOptions = {
         from: 'SIGNAL\' AMU <signalamu@gmail.com>',
         to: data.mail,
         subject: 'Confirmez votre compte Signal\'AMU ',
-        html: getHtml('http://localhost:3000/validate-email/' + data.last_name + '/' + data.key, data.first_name[0].toUpperCase() + data.first_name.substring(1))
+        html: getHtml('http://'+ d +':3000/validate-email/' + data.last_name + '/' + data.key, data.first_name[0].toUpperCase() + data.first_name.substring(1))
     };
     try {
         const result = await transporter.sendMail(mailOptions);
