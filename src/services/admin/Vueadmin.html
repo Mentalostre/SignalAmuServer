@@ -148,7 +148,7 @@
 
 <script>
     function getTable(params){
-        $.get('http://localhost:3000/api/report').then(function(data) {
+        $.get('http://localhost:3000/api/reportALL').then(function(data) {
             myArray = data.reports;
             params.success(myArray)
         })

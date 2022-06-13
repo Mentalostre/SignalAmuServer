@@ -11,11 +11,14 @@ import {
     post_validate_report,
     is_valid_post_validate_report, post_image, is_valid_post_image, get_report_image_service
 } from "../../services/report.js";
+import {report_getALL_service} from "../../services/admin/admin.js";
 
 export const report = (router)=>{
     router.post('/api/report', is_registered, bodyParser.urlencoded({extended: true}), is_valid_post_report ,report_service);
 
-    router.get('/api/report', report_get_service); // return all reports
+    router.get('/api/report', is_registered, report_get_service); // return all reports
+
+    router.get('/api/reportALL', report_getALL_service);
 
     router.post('/api/report/validate', bodyParser.urlencoded({extended: true}),is_registered_admin, is_valid_post_validate_report, post_validate_report);
 
