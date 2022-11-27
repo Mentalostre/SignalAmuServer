@@ -1,13 +1,11 @@
-# signal AMU server
+# Signal'AMU Server-Side
 
+Projet de fin de licence informatique.
 
+Signal'AMU est une application dévloppée pour iOS et Android, qui s'inspire du fonctionnement de Waze. L'application permet entre autre de : 
 
-route description :
-- ```GET /``` : send error 404
+  - Avoir une cartographie de la faculté (via une carte récupérée sur OpenStreetMap),
+  - Signaler des évenements sur le campus, qu'ils soient d'ordre logistiques ou bien signaler du vandalisme,
+  - Donner une liste exaustive du personnel de la faculté à contacter en cas de problème.
 
-- ```GET /api``` : send ***"Signal'AMU server API."*** response
-
-## Database
-
-You can find the database in the file ```/database.md```
 
